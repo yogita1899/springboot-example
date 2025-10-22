@@ -48,6 +48,12 @@
 			<artifactId>asm</artifactId>
 			<version>9.1</version>
 		</dependency>
+        <dependency>
+            <groupId>com.newrelic.agent.java</groupId>
+            <artifactId>newrelic-api</artifactId>
+            <version>8.24.0</version>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
