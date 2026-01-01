@@ -1,0 +1,30 @@
+name: backend pipeline
+
+on:
+  push:
+    branches:
+      - test 
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: checkout source code
+        uses: actions/checkout@v4
+      - name: setup java
+        uses: actions/setup-java@v4
+        with: 
+          distribution: 'temurin'
+          java-version: '17'
+      - name: build project
+        run: mvn clean install --DskipTests
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: springboot-app
+          environment_name: springboot-app-dev
+          version_label: ${{ github.sha }}
+          region: us-west-2
+          deployment_package: target/springboot-example.jar
