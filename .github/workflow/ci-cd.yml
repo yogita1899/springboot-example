@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Pipeline
 on:
   pull_request:
     types: [opened, synchronize, reopened,closed]
